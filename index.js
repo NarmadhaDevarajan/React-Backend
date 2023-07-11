@@ -1,7 +1,6 @@
 //simple web server
-
-const http=require('http');
- 
+const express=require('express') ;
+const app=express();
 let notes=[
     {
         id:1,
@@ -10,20 +9,28 @@ let notes=[
     },
     {
         id:2,
-        content:'backend server using nodejs',
+        content:'backend restful using nodejs will grow complex',
         important:false
     },
     {
         id:3,
-        content:'backend server using nodejs',
+        content:'express makes backend restful painless',
         important:true
     }
 ];
-// const { type } = require('os');
-const app=http.createServer((request,response)=>{
-    response.writeHead(200,{'Content-Type':'Application/json'});
-    response.end(json.stringify(notes));
-});
+//set end points
+app.get('/',(request,response)=>{
+    // response.send('hello world');
+    response.send('<h1>Notes Application!</h1>');
+
+})
+//get all notes
+
+app.get('/api/notes',(request,response)=>
+{
+    response.json(notes);
+})
+
+
 const PORT=3001;
-app.listen(PORT);
-console.log(`Server running on the port number ${PORT}`);
+app.listen(PORT,()=>console.log(`Server running on the port number ${PORT}`));
